@@ -16,9 +16,10 @@ void line(int count) {
     cout << "\n";
 }
 
+template<class T>
 class vector {
 private:
-    int* data;
+    T* data;
     int size;
 
 public:
@@ -33,7 +34,7 @@ public:
     }
 
     vector(const vector& other) {
-        this->data = new int[other.size];
+        this->data = new T[other.size];
         this->size = other.size;
 
         for (int i = 0; i < other.size; i++)
@@ -55,8 +56,8 @@ public:
         }
     }
 
-    void add_element_start(int number) {
-        int* p = new int[size + 1];
+    void add_element_start(T number) {
+        T* p = new T[size + 1];
 
         for (int i = 1; i < size + 1; i++)
             *(p + i) = *(data + i - 1);
@@ -69,8 +70,8 @@ public:
         p = nullptr;
     }
 
-    void add_element_end(int number) {
-        int* p = new int[size + 1];
+    void add_element_end(T number) {
+        T* p = new T[size + 1];
 
         for (int i = 0; i < size; i++)
             *(p + i) = *(data + i);
@@ -82,8 +83,8 @@ public:
         p = nullptr;
     }
 
-    void add_element_need(int wher, int number) {
-        int* p = new int[size + 1];
+    void add_element_need(int wher, T number) {
+        T* p = new T[size + 1];
 
         for (int i = 0; i < wher; i++) {
             p[i] = data[i];
@@ -103,7 +104,7 @@ public:
 
     void deletee_element_last() {
         size--;
-        int* p = new int[size];
+        T* p = new T[size];
 
         for (int i = 0; i < size; i++) {
             p[i] = data[i];
@@ -116,7 +117,7 @@ public:
 
     void deletee_element_first() {
         size--;
-        int* p = new int[size];
+        T* p = new T[size];
 
         for (int i = 0; i < size; i++) {
             p[i] = data[i + 1];
@@ -128,7 +129,7 @@ public:
     }
 
     void delete_element_position(int position) {
-        int* p = new int[size - 1];
+        T* p = new T[size - 1];
 
         for (int i = 0, j = 0; i < size; i++) {
             if (i != position) {
@@ -142,14 +143,14 @@ public:
         p = nullptr;
     }
 
-    int search_element_position(int element) {
+    int search_element_position(T element) {
         for (int i = 0; i < size; i++)
             if (data[i] == element)
                 return i;
         return -1;
     }
 
-    void delete_search_element(int element) {
+    void delete_search_element(T element) {
         int position = search_element_position(element);
         if (position != -1)
             delete_element_position(position);
@@ -165,13 +166,13 @@ public:
         size = 0;
     }
 
-    void change_element_by_value(int number, int change_number) {
+    void change_element_by_value(T number, T change_number) {
         int position = search_element_position(number);
         if (position != -1)
             data[position] = change_number;
     }
 
-    void change_element_by_position(int position, int change_number) {
+    void change_element_by_position(int position, T change_number) {
         data[position] = change_number;
     }
 
@@ -181,18 +182,18 @@ public:
         }
     }
 
-    int get_max() {
+    T get_max() {
         if (size == 0) return 0;
-        int max_val = data[0];
+        T max_val = data[0];
         for (int i = 1; i < size; i++)
             if (data[i] > max_val)
                 max_val = data[i];
         return max_val;
     }
 
-    int get_min() {
+    T get_min() {
         if (size == 0) return 0;
-        int min_val = data[0];
+        T min_val = data[0];
         for (int i = 1; i < size; i++)
             if (data[i] < min_val)
                 min_val = data[i];
@@ -203,7 +204,7 @@ public:
         return size;
     }
 
-    int get_element(int index) {
+    T get_element(int index) {
         if (index < 0 || index >= size) return 0;
         return data[index];
     }
@@ -240,7 +241,7 @@ public:
         if (this->data) {
             delete[] this->data;
         }
-        this->data = new int[other.size];
+        this->data = new T[other.size];
 
         for (int i = 0; i < other.size; i++)
         {
@@ -251,13 +252,13 @@ public:
         return *this;
     }
 
-    int& get_element_by_index(unsigned int index) {
+    T& get_element_by_index(unsigned int index) {
         if (index >= size)
             throw exception("index out of range");
 
         return data[index];
     }
-    int& operator[](unsigned int index) const {
+    T& operator[](unsigned int index) const {
         if (index >= size)
             throw exception("index out of range");
 
@@ -274,19 +275,20 @@ public:
     }
 };
 
-ostream& operator<< (ostream& os, const vector& obj) {
+template<class T>
+ostream& operator<< (ostream& os, const vector<T>& obj) {
     obj.print_v();
     return os;
 }
 
-istream& operator>> (istream& is, vector& obj) {
+template<class T>
+istream& operator>> (istream& is, vector<T>& obj) {
     obj.set_random(10);
     return is;
 }
 
-
 class ringQueue {
-    vector data;
+    vector<int> data;
 public:
 
     void push(int value) {
@@ -320,30 +322,42 @@ public:
         data.delete_array();
     }
 
+    vector<int> getData() {
+        return data;
+    }
+
 };
+
+void printWheel(vector<ringQueue>  rArr) {
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 3; j++) cout << rArr[j].getData()[i] << " ";
+        cout << endl;
+    }
+}
+
+void runWheel(vector<ringQueue>& rArr) {
+    for (int i = 0; i < 3; i++) {
+        int turns = rand() % 30 + 5;
+        for (int j = 0; j < turns; j++) rArr[i].pop();
+    }
+}
 
 
 
 int main() {
+    srand(time(0));
 
-    ringQueue q;
+    vector<ringQueue> rArr;
+    rArr.add_element_end(ringQueue());
+    rArr.add_element_end(ringQueue());
+    rArr.add_element_end(ringQueue());
 
-    q.push(100);
-    q.push(200);
-    q.push(300);
-    q.push(400);
-
-    q.print();
-
-    q.pop();
-    q.print();
-    q.pop();
-    q.print();
-    q.pop();
-    q.print();
-    q.pop();
-    q.print();
-
+    for(int i = 0; i < 3; i++)
+        for(int j = 1; j < 8; j++){
+            rArr[i].push(j);
+        }
+    runWheel(rArr);
+    printWheel(rArr);
 
 
 
