@@ -279,6 +279,7 @@ int main() {
     q.push(priorityItem<client>(client("Nrgw", "Faseg", 19), 7));
     q.push(priorityItem<client>(client("Hjyjr", "Qrwr", 25), 2));
     q.push(priorityItem<client>(client("Qewrrt", "Jykerg", 23), 4));
+    q.push(priorityItem<client>(client("Ghrh", "Ffefa", 24), 8));
 
 
     q.print();
