@@ -45,6 +45,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "23_TemplatePriorityQueue", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "24_PrinterQueue", "24_PrinterQueue\24_PrinterQueue.vcxproj", "{507590BC-1AC7-48FD-B8EA-2B8365B5B79E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "25_BinaryTree", "25_BinaryTree\25_BinaryTree.vcxproj", "{D3F80755-F6BD-4C63-8269-CEB84C446B71}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "26_BinaryTreeTask", "26_BinaryTreeTask\26_BinaryTreeTask.vcxproj", "{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -221,6 +225,22 @@ Global
 		{507590BC-1AC7-48FD-B8EA-2B8365B5B79E}.Release|x64.Build.0 = Release|x64
 		{507590BC-1AC7-48FD-B8EA-2B8365B5B79E}.Release|x86.ActiveCfg = Release|Win32
 		{507590BC-1AC7-48FD-B8EA-2B8365B5B79E}.Release|x86.Build.0 = Release|Win32
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Debug|x64.ActiveCfg = Debug|x64
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Debug|x64.Build.0 = Debug|x64
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Debug|x86.ActiveCfg = Debug|Win32
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Debug|x86.Build.0 = Debug|Win32
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Release|x64.ActiveCfg = Release|x64
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Release|x64.Build.0 = Release|x64
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Release|x86.ActiveCfg = Release|Win32
+		{D3F80755-F6BD-4C63-8269-CEB84C446B71}.Release|x86.Build.0 = Release|Win32
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Debug|x64.ActiveCfg = Debug|x64
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Debug|x64.Build.0 = Debug|x64
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Debug|x86.ActiveCfg = Debug|Win32
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Debug|x86.Build.0 = Debug|Win32
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Release|x64.ActiveCfg = Release|x64
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Release|x64.Build.0 = Release|x64
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Release|x86.ActiveCfg = Release|Win32
+		{E32FACC9-D4A5-4059-AAB8-3FBA914BCBBB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
