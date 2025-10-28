@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <windows.h>
 using namespace std;
 
 struct timeStruct {
@@ -60,17 +61,14 @@ public:
 };
 
 ostream& operator << (ostream& os, const train& obj) {
-	os << "Train ¹" << obj.getNumber() << "\n\tDestination station: " << obj.getDestinationStation() << "\n\tDeparture time: " << obj.getDepartureTime() << endl;
+	os << "Train ¹" << obj.getNumber() << "\n\tDestination station: " << obj.getDestinationStation() << "\n\tDeparture time: " << obj.getDepartureTime();
 	return os;
 }
 
 
-class system {
+class sys {
 	vector<train> trains;
 public:
-	system(train t) {
-		trains.push_back(t);
-	}
 	void addTrain(train t) {
 		trains.push_back(t);
 	}
@@ -82,17 +80,60 @@ public:
 			}
 		}
 	}
-	void print() const {
-		for (train t : trains) cout << t << endl;
+	void print(int detailed) const {
+		for (train t : trains) {
+			if (t.getNumber() == detailed) cout << t << endl;
+			else cout << "Train ¹" << t.getNumber() << endl;
+		}
 	}
 };
 
 
+void menu() {
+	cout << endl;
+	cout << "0 - Exit" << endl;
+	cout << "1 - Add new train" << endl;
+	cout << "2 - Get more info" << endl;
+}
+
 
 
 int main() {
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
 
-	system s(train(1, "Station 1", 12, 20));
+	sys s;
+
+	s.addTrain(train(1, "Station 1", 12, 20));
+	s.addTrain(train(2, "Station 1", 12, 45));
+	s.addTrain(train(5, "Station 2", 15, 10));
+	s.addTrain(train(9, "Station 3", 11, 15));
+	s.addTrain(train(12, "Station 1", 11, 30));
+	s.addTrain(train(65, "Station 2", 16, 00));
+	
+	string station;
+	int choice, detailed = -1, number, hour, minute;
+	do {
+		system("cls");
+		s.print(detailed);
+		menu();
+		cin >> choice;
+		switch (choice) {
+			case 1:
+				cout << "Enter train number: ";
+				cin >> number;
+				cout << "Enter destination station: ";
+				cin >> station;
+				cout << "Enter departure time: ";
+				cin >> hour >> minute;
+				s.addTrain(train(number, station, hour, minute));
+				break;
+			case 2:
+				cout << "Enter train number: ";
+				cin >> detailed;
+				break;
+		}
+	} while (choice);
 
 
 
