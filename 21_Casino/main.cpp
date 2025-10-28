@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <conio.h>
 using namespace std;
 
 
@@ -329,9 +330,12 @@ public:
 };
 
 void printWheel(vector<ringQueue>  rArr) {
+    int c = 0;
     for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 3; j++) cout << rArr[j].getData()[i] << " ";
+        c++;
         cout << endl;
+        if (c == 3 || c == 4) cout << endl;
     }
 }
 
@@ -356,8 +360,19 @@ int main() {
         for(int j = 1; j < 8; j++){
             rArr[i].push(j);
         }
-    runWheel(rArr);
-    printWheel(rArr);
+    cout << "Click any button to roll (0 for finish)";
+    char c = _getch();
+
+    while (c != '0') {
+        system("cls");
+        runWheel(rArr);
+        printWheel(rArr);
+        cout << endl;
+        if (rArr[0].getData()[3] == rArr[1].getData()[3] == rArr[2].getData()[3]) cout << "You won!";
+        else cout << "You lost!";
+        c = _getch();
+    }
+    
 
 
 

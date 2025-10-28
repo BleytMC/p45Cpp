@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <conio.h>
 using namespace std;
 
 
@@ -30,7 +31,7 @@ struct bus {
 	}
 
 	bus(int key, string name, string surname) {
-		this->number = number;
+		this->number = key;
 		this->name = name;
 		this->surname = surname;
 	}
@@ -78,6 +79,10 @@ public:
 		}
 	}
 
+	void p(element* node) {
+		cout << node->key.number << " " << node->key.name << " " << node->key.surname << endl;
+	}
+
 	element* getRoot() const {
 		return root;
 	}
@@ -103,6 +108,13 @@ public:
 	}
 };
 
+void menu() {
+	cout << endl;
+	cout << "0 - Exit" << endl;
+	cout << "1 - Add bus" << endl;
+	cout << "2 - Search by number" << endl;
+}
+
 
 
 int main() {
@@ -116,7 +128,33 @@ int main() {
 	t.insert(bus(122, "Jtheg", "Veggs"));
 	t.insert(bus(54, "Gsafg", "Qeewf"));
 
-	t.print(t.getRoot());
+	string name, surname;
+	int choice, num;
+
+	do {
+		system("cls");
+		t.print(t.getRoot());
+		menu();
+		cin >> choice;
+		switch (choice) {
+			case 1:
+				cout << endl << "Enter number: ";
+				cin >> num;
+				cout << "Enter name: ";
+				cin >> name;
+				cout << "Enter surname: ";
+				cin >> surname;
+				t.insert(bus(num, name, surname));
+				break;
+			case 2:
+				cout << endl << "Enter number: ";
+				cin >> num;
+				cout << endl;
+				t.p(t.search(t.getRoot(), num));
+				_getch();
+				break;
+		}
+	} while (choice);
 
 	
 
