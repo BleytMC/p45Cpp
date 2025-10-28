@@ -24,6 +24,7 @@
     <ProjectGuid>{6664c0f7-3dd4-4b97-97f4-456c6d28d17c}</ProjectGuid>
     <RootNamespace>My41Map</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>37_Map</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
