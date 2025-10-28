@@ -35,7 +35,258 @@ namespace d3 {
 
 namespace dynamicStructures {
     namespace lists {
+        namespace single {
+            struct element {
+                int data;
+                element* next = nullptr;
+            };
 
+            class list {
+                element* head, * tail;
+                int size;
+            public:
+                list() {
+                    head = tail = nullptr;
+                    size = 0;
+                }
+
+                void fillRandom(int size) {
+                    for (int i = 0; i < size; i++) addHead(rand() % 101 - 50);
+                }
+
+                void addHead(int value) {
+                    element* newElement = new element;
+                    newElement->data = value;
+                    if (size == 0) head = tail = newElement;
+                    else {
+                        newElement->next = head;
+                        head = newElement;
+                    }
+                    newElement = nullptr;
+                    size++;
+                }
+
+                void addTail(int value) {
+                    element* newElement = new element;
+                    newElement->data = value;
+                    if (size == 0) head = tail = newElement;
+                    else {
+                        tail->next = newElement;
+                        tail = newElement;
+                    }
+                    newElement = nullptr;
+                    size++;
+                }
+
+                void removeHead() {
+                    if (size == 0) return;
+                    element* p = head;
+                    head = head->next;
+                    delete p;
+                    p = nullptr;
+                    size--;
+                }
+
+                void removeTail() {
+                    if (size == 0) return;
+                    if (size == 1) {
+                        removeHead();
+                        return;
+                    }
+                    element* p = head;
+                    while (p->next != tail) p = p->next;
+                    p->next = nullptr;
+                    delete tail;
+                    tail = p;
+                    p = nullptr;
+                    size--;
+                }
+
+                void addPosition(int value, int position) {
+                    if (position > size) return;
+                    if (position == 0) addHead(value);
+                    else if (position == size) addTail(value);
+                    else {
+                        element* p = head;
+                        for (int i = 0; i < position - 1; i++) p = p->next;
+                        element* newElement = new element;
+                        newElement->data = value;
+                        newElement->next = p->next;
+                        p->next = newElement;
+                        p = nullptr;
+                        size++;
+                    }
+                }
+
+                void removePosition(int position) {
+                    if (position >= size) return;
+                    if (position == 0) removeHead();
+                    else if (position == size - 1) removeTail();
+                    else {
+                        element* p = head;
+                        for (int i = 0; i < position - 1; i++) p = p->next;
+                        element* p2 = p->next->next;
+                        delete p->next;
+                        p->next = p2;
+                        p = nullptr;
+                        p2 = nullptr;
+                        size--;
+                    }
+                }
+
+                void clear() {
+                    int p = size;
+                    for (int i = 0; i < p; i++) removeHead();
+                }
+
+                void print() const {
+                    if (size == 0) return;
+                    element* p = head;
+                    while (p) {
+                        cout << p->data << " ";
+                        p = p->next;
+                    }
+                }
+
+                ~list() { clear(); }
+
+
+            };
+        }
+
+        namespace d {
+            struct element {
+                int data = 0;
+                element* next = nullptr, * prev = nullptr;
+            };
+
+            class list {
+                element* head, * tail;
+                int size;
+
+                void copy(const list& other) {
+                    element* p = other.head;
+                    while (p->next) {
+                        addTail(p->data);
+                        p = p->next;
+                    }
+                    addTail(p->data);
+                }
+
+            public:
+                list() {
+                    head = tail = nullptr;
+                    size = 0;
+                }
+
+                list(const list& other) {
+                    copy(other);
+                }
+
+                void fillRandom(int size) {
+                    for (int i = 0; i < size; i++) addHead(rand() % 101 - 50);
+                }
+
+                void addHead(int value) {
+                    element* newElement = new element;
+                    newElement->data = value;
+                    if (size == 0) head = tail = newElement;
+                    else {
+                        newElement->next = head;
+                        head->prev = newElement;
+                        head = newElement;
+                    }
+                    newElement = nullptr;
+                    size++;
+                }
+
+                void addTail(int value) {
+                    element* newElement = new element;
+                    newElement->data = value;
+                    if (size == 0) head = tail = newElement;
+                    else {
+                        tail->next = newElement;
+                        newElement->prev = tail;
+                        tail = newElement;
+                    }
+                    newElement = nullptr;
+                    size++;
+                }
+
+                void removeHead() {
+                    if (size == 0) return;
+                    element* p = head;
+                    head = head->next;
+                    if (size > 1) head->prev = nullptr;
+                    delete p;
+                    p = nullptr;
+                    size--;
+                }
+
+                void removeTail() {
+                    if (size == 0) return;
+                    element* p = tail;
+                    tail = tail->prev;
+                    if (size > 1) tail->next = nullptr;
+                    delete p;
+                    p = nullptr;
+                    size--;
+                }
+
+                void clear() {
+                    while (head) removeHead();
+                }
+
+                void addPosition(int value, int position) {
+                    if (position > size) return;
+                    if (position == 0) addHead(value);
+                    else if (position == size) addTail(value);
+                    else {
+                        element* p = head;
+                        for (int i = 0; i < position - 1; i++) p = p->next;
+                        element* newElement = new element;
+                        newElement->data = value;
+                        newElement->next = p->next;
+                        p->next = newElement;
+                        newElement->prev = p;
+                        p = nullptr;
+                        size++;
+                    }
+                }
+
+                void removePosition(int position) {
+                    if (position >= size) return;
+                    if (position == 0) removeHead();
+                    else if (position == size - 1) removeTail();
+                    else {
+                        element* p = head;
+                        for (int i = 0; i < position; i++) p = p->next;
+                        p->prev->next = p->next;
+                        p->next->prev = p->prev;
+                        delete p;
+                        p = nullptr;
+                        size--;
+                    }
+                }
+
+                void print() const {
+                    if (size == 0) return;
+                    element* p = head;
+                    while (p) {
+                        cout << p->data << " ";
+                        p = p->next;
+                    }
+                }
+
+                list& operator=(const list& other) {
+                    clear();
+                    copy(other);
+                    return *this;
+                }
+
+                ~list() { clear(); }
+            };
+        }
     }
 
     namespace queues {
