@@ -66,7 +66,9 @@ public:
 	}
 
 	void removeCar(string name) {
-		for (auto it = cars.begin(); it != cars.end(); it++) if (it->getName() == name) cars.erase(it);
+		//for (auto it = cars.begin(); it != cars.end(); it++) if (it->getName() == name) cars.erase(it);
+		auto it = remove_if(cars.begin(), cars.end(), [name](const car& c) {return c.getName() == name; });
+		cars.erase(it, cars.end());
 	}
 
 	dealership findByName(string name) {
@@ -165,10 +167,6 @@ int main() {
 
 	dealership d(cars);
 
-	d.sortByYearToTop();
-
-	d.print();
-
 
 	int choice, year, a, b;
 	string name;
@@ -195,6 +193,7 @@ int main() {
 				break;
 			case 2:
 				cout << "Enter car name: ";
+				cin >> name;
 				d.removeCar(name);
 				break;
 			case 3:
@@ -203,7 +202,8 @@ int main() {
 				break;
 			case 4:
 				cout << "Enter name: ";
-				cin >> name;
+				cin.ignore();
+				getline(cin, name);
 				system("cls");
 				if (d.findByName(name).isEmpty()) cout << "Nothing found";
 				else d.findByName(name).print();
