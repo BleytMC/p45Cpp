@@ -180,6 +180,8 @@ int main() {
 		cin >> choice;
 		cout << endl;
 		switch (choice) {
+			case 0:
+				break;
 			case 1:
 				cout << "Enter car name: ";
 				cin >> name;
@@ -245,6 +247,9 @@ int main() {
 				break;
 			case 14:
 				d.sortByEngineVolumeToLow();
+				break;
+			default:
+				cout << "Your choice is out of range";
 				break;
 		}
 		if (choice) _getch();
